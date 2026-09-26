@@ -6,14 +6,14 @@ category: setup
 tags: [zsh, terminal]
 ---
 
-My terminal setup from scratch on a fresh macOS machine. Takes about 15 minutes and makes the shell genuinely enjoyable to use.
+My terminal setup from scratch on a fresh macOS machine. It takes about 15 minutes and makes the shell a pleasure to use.
 
-## The Stack
+## The stack
 
-- **Zsh** — default shell on macOS since Catalina
-- **Oh My Zsh** — plugin framework (manages plugins, themes, updates)
-- **Powerlevel10k** — fast, configurable prompt theme with instant prompt
-- **Modern CLI replacements** — `bat`, `lsd`, `ripgrep`, `delta`, `zoxide`, `fzf`
+- **Zsh**: default shell on macOS since Catalina
+- **Oh My Zsh**: plugin framework (manages plugins, themes, updates)
+- **Powerlevel10k**: fast, configurable prompt theme with instant prompt
+- **Modern CLI replacements**: `bat`, `lsd`, `ripgrep`, `delta`, `zoxide`, `fzf`
 
 ## Step 1: Oh My Zsh
 
@@ -36,9 +36,9 @@ Set the theme in `~/.zshrc`:
 ZSH_THEME="powerlevel10k/powerlevel10k"
 ```
 
-On next shell start, P10k runs its configuration wizard. Pick what you like — you can re-run it anytime with `p10k configure`.
+On next shell start, P10k runs its configuration wizard. Pick what you like. You can re-run it anytime with `p10k configure`.
 
-The instant prompt feature is what makes the shell feel fast — it renders the prompt immediately while the rest of `.zshrc` is still loading:
+The instant prompt is what makes the shell feel fast. It renders the prompt immediately while the rest of `.zshrc` is still loading:
 
 ```zsh
 # This goes at the very top of .zshrc
@@ -90,9 +90,9 @@ plugins=(
 )
 ```
 
-Pick what's relevant to your stack — don't load plugins for tools you don't use. Each plugin adds to startup time.
+Pick what's relevant to your stack, and skip plugins for tools you don't use. Each plugin adds to startup time.
 
-## Step 4: Modern CLI Replacements
+## Step 4: Modern CLI replacements
 
 ```bash
 brew install bat lsd ripgrep git-delta zoxide fzf
@@ -112,14 +112,14 @@ Initialize zoxide (at the end of `.zshrc`):
 eval "$(zoxide init zsh)"
 ```
 
-Now `z` replaces `cd` — it learns your most-used directories and fuzzy-matches:
+Now `z` replaces `cd`. It learns your most-used directories and fuzzy-matches:
 
 ```bash
 z work        # jumps to ~/workspace (or wherever you go most)
 z dot         # jumps to ~/dotfiles
 ```
 
-## Step 5: Quality of Life
+## Step 5: Quality of life
 
 A few settings I find essential:
 
@@ -132,7 +132,7 @@ bindkey '\e\e[C' forward-word      # Option+Right to jump words
 bindkey '\e\e[D' backward-word     # Option+Left to jump words
 ```
 
-## The Result
+## The result
 
 A shell that:
 - Opens in ~140ms (see [Shell startup: from 5s to 140ms](/agentic-engineering/articles/zshrc-from-5s-to-140ms/) for how)
