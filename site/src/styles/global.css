@@ -90,6 +90,8 @@ header.site nav a:hover { color: var(--fg); }
 
 main.wrap { padding-top: 3rem; padding-bottom: 4rem; }
 
+footer.site a { color: inherit; }
+
 footer.site {
   border-top: 1px solid var(--border);
   color: var(--muted);
