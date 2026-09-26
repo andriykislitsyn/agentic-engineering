@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { url } from '../url';
+
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
+---
+
+<Base title="Agentic Engineering" description="Notes on building, testing, and shipping agent systems: Claude Code setups, skills, MCP servers, RAG, and CI/CD.">
+  <h1>Agentic Engineering</h1>
+  <p class="lede">Notes on building, testing, and shipping agent systems. Every claim here should come with code you can run.</p>
+  <ul class="article-list">
+    {articles.map((a) => (
+      <li>
+        <time datetime={a.data.pubDate.toISOString()}>{fmt.format(a.data.pubDate)}</time>
+        <div><a class="title" href={url(`articles/${a.id}/`)}>{a.data.title}</a></div>
+        <p>{a.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</Base>

@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import { url } from '../url';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const siteTitle = 'Agentic Engineering';
+const pageTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href={url()}>{siteTitle}</a>
+        <nav>
+          <a href="https://github.com/andriykislitsyn/agentic-engineering">Source</a>
+          <a href="https://github.com/andriykislitsyn">About</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">Andrii Kislitsyn · Notes on building, testing, and shipping agent systems</div>
+    </footer>
+  </body>
+</html>
