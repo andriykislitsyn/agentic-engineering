@@ -4,9 +4,11 @@ import Base from '../layouts/Base.astro';
 import { readingTime } from '../reading-time';
 import { url } from '../url';
 
-const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+const published = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const articles = published.filter((a) => a.data.category === 'article');
+const setupNotes = published.filter((a) => a.data.category === 'setup');
 const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
 ---
 
@@ -31,4 +33,20 @@ const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
       </li>
     ))}
   </ul>
+
+  {setupNotes.length > 0 && (
+    <section class="setup-notes">
+      <h2>Setup notes</h2>
+      <p class="section-lede">The workstation behind the work: shell, Git, and tooling.</p>
+      <ul class="compact-list">
+        {setupNotes.map((a) => (
+          <li>
+            <a href={url(`articles/${a.id}/`)}>{a.data.title}</a>
+            <span>{readingTime(a.body)} min read</span>
+            <p>{a.data.description}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 </Base>

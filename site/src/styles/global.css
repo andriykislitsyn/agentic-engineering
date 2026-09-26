@@ -174,3 +174,13 @@ article > .tags { margin: 0 0 2.5rem; }
 
 .back { display: inline-block; font-size: 0.925rem; text-decoration: none; margin-bottom: 1.5rem; }
 .back-bottom { margin: 3rem 0 0; }
+
+.setup-notes { margin-top: 3.5rem; }
+.setup-notes h2 { margin: 0 0 0.25rem; }
+.section-lede { color: var(--muted); margin: 0 0 1rem; }
+.compact-list { list-style: none; padding: 0; margin: 0; }
+.compact-list li { padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+.compact-list a { font-weight: 600; text-decoration: none; }
+.compact-list a:hover { text-decoration: underline; }
+.compact-list span { color: var(--muted); font-size: 0.85rem; margin-left: 0.6rem; }
+.compact-list p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.95rem; }
