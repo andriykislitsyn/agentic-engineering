@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import { readingTime } from '../../reading-time';
+import { url } from '../../url';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles', ({ data }) => !data.draft);
@@ -10,16 +12,20 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const { Content } = await render(article);
 const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'long' });
-const { title, description, pubDate, updatedDate } = article.data;
+const { title, description, pubDate, updatedDate, tags } = article.data;
 ---
 
 <Base title={title} description={description}>
   <article>
+    <a class="back" href={url()}>← All articles</a>
     <h1>{title}</h1>
     <p class="meta">
       <time datetime={pubDate.toISOString()}>{fmt.format(pubDate)}</time>
-      {updatedDate && <> · updated <time datetime={updatedDate.toISOString()}>{fmt.format(updatedDate)}</time></>}
+      {updatedDate && <span>updated <time datetime={updatedDate.toISOString()}>{fmt.format(updatedDate)}</time></span>}
+      <span>{readingTime(article.body)} min read</span>
     </p>
+    {tags.length > 0 && <ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>}
     <Content />
+    <a class="back back-bottom" href={url()}>← All articles</a>
   </article>
 </Base>
