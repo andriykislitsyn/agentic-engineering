@@ -18,11 +18,11 @@ time zsh -i -c exit
 
 Run it 3-5 times and take the median. On my machine this was consistently over 5 seconds.
 
-## The Bottlenecks
+## The bottlenecks
 
 ### NVM (~300ms)
 
-NVM sources a full shell script on every shell startup, even if you never use `node` in that session. The fix is lazy-loading — wrap the commands in functions that load the real NVM on first use:
+NVM sources a full shell script on every shell startup, even if you never use `node` in that session. The fix is lazy-loading: wrap the commands in functions that load the real NVM on first use:
 
 ```zsh
 nvm() { unset -f nvm node npm npx; [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh"; nvm "$@"; }
@@ -48,13 +48,13 @@ rmvirtualenv() { _load_venvwrapper; rmvirtualenv "$@"; }
 
 Oh My Zsh calls `compinit` once, but some plugins and custom configurations trigger it again. Each `compinit` call scans the entire fpath for completion functions. Making sure it only runs once saved another noticeable chunk.
 
-## The Tools That Didn't Slow Things Down
+## Tools that didn't slow things down
 
 These are instant and worth keeping:
 
-- **zoxide** (`eval "$(zoxide init zsh)"`) — negligible
-- **Powerlevel10k instant prompt** — actually *improves* perceived startup by rendering the prompt before the rest of .zshrc finishes
-- **fzf** — plugin is lightweight
+- **zoxide** (`eval "$(zoxide init zsh)"`): negligible
+- **Powerlevel10k instant prompt**: it *improves* perceived startup by rendering the prompt before the rest of .zshrc finishes
+- **fzf**: the plugin is lightweight
 
 ## Result
 
@@ -63,4 +63,4 @@ Before:  5.2s average
 After:   ~140ms average
 ```
 
-The shell now opens faster than my fingers can move to start typing. The key insight: most startup cost comes from tools eagerly initializing "just in case." Lazy-loading defers that cost to the moment you actually need it — and for many sessions, that moment never comes.
+The shell now opens faster than my fingers can move to start typing. The key insight: most startup cost comes from tools eagerly initializing "just in case." Lazy-loading defers that cost to the moment you need it. For many sessions, that moment never comes.

@@ -6,9 +6,9 @@ category: setup
 tags: [git, security]
 ---
 
-Every commit I push is GPG-signed. GitHub shows a green "Verified" badge next to them, which proves the commit actually came from me and wasn't spoofed. Setup takes 5 minutes.
+Every commit I push is GPG-signed. GitHub shows a green "Verified" badge next to them, which proves the commit came from me and wasn't spoofed. Setup takes 5 minutes.
 
-## Why Bother
+## Why bother
 
 Git doesn't verify identity. Anyone can set `user.name` and `user.email` to whatever they want:
 
@@ -29,13 +29,13 @@ On macOS, the easiest option is [GPG Suite](https://gpgtools.org/):
 brew install --cask gpg-suite
 ```
 
-Or just the CLI tools:
+Or only the CLI tools:
 
 ```bash
 brew install gnupg
 ```
 
-### 2. Generate a Key
+### 2. Generate a key
 
 ```bash
 gpg --full-generate-key
@@ -47,7 +47,7 @@ When prompted:
 - Expiration: your choice (I use no expiration for personal keys, 1 year for work)
 - Name and email: use the **same email** as your GitHub account
 
-### 3. Find Your Key ID
+### 3. Find your key ID
 
 ```bash
 gpg --list-secret-keys --keyid-format=long
@@ -62,9 +62,9 @@ uid                 [ultimate] Your Name <your.email@example.com>
 ssb   rsa4096/5566778899AABBCC 2024-01-15 [E]
 ```
 
-The key ID is the part after `rsa4096/` on the `sec` line — `AABBCCDD11223344` in this example.
+The key ID is the part after `rsa4096/` on the `sec` line: `AABBCCDD11223344` in this example.
 
-### 4. Add the Key to GitHub
+### 4. Add the key to GitHub
 
 Export the public key:
 
@@ -86,7 +86,7 @@ git config --global commit.gpgsign true
 git config --global tag.gpgSign true
 ```
 
-With `commit.gpgsign = true`, every commit is signed automatically — no need to pass `-S` each time.
+With `commit.gpgsign = true`, every commit is signed automatically, so you don't need to pass `-S` each time.
 
 ### 6. Fix the TTY
 
@@ -98,7 +98,7 @@ export GPG_TTY=$(tty)
 
 Without this, you'll get `error: gpg failed to sign the data` when committing from the terminal.
 
-## Verifying It Works
+## Verify it works
 
 Make a test commit and check:
 
@@ -111,13 +111,13 @@ You should see `Good signature from "Your Name <your.email@example.com>"` in the
 
 ## Troubleshooting
 
-**"gpg failed to sign the data"** — usually means `GPG_TTY` is not set, or the GPG agent lost the passphrase cache. Run `export GPG_TTY=$(tty)` and try again.
+**"gpg failed to sign the data"**: usually means `GPG_TTY` is not set, or the GPG agent lost the passphrase cache. Run `export GPG_TTY=$(tty)` and try again.
 
-**"secret key not available"** — the signing key ID in your git config doesn't match any key in your keyring. Double-check with `gpg --list-secret-keys`.
+**"secret key not available"**: the signing key ID in your git config doesn't match any key in your keyring. Double-check with `gpg --list-secret-keys`.
 
-**GitHub shows "Unverified"** — the email on the GPG key must match a verified email on your GitHub account. Check under Settings → Emails.
+**GitHub shows "Unverified"**: the email on the GPG key must match a verified email on your GitHub account. Check under Settings → Emails.
 
-## Config Reference
+## Config reference
 
 The relevant section in [git/.gitconfig](https://github.com/andriykislitsyn/dotfiles/blob/main/git/.gitconfig):
 
