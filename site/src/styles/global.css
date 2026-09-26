@@ -5,6 +5,9 @@
   --accent: #2458c6;
   --border: #e3e3de;
   --code-bg: #f3f3ef;
+  --surface: #ffffff;
+  --tag-bg: #e8eefb;
+  --tag-fg: #1f4aa8;
   --measure: 42rem;
   color-scheme: light;
 }
@@ -17,6 +20,9 @@
     --accent: #7ea6ff;
     --border: #2a2c30;
     --code-bg: #1b1d20;
+    --surface: #18191c;
+    --tag-bg: #1d2740;
+    --tag-fg: #a9c2ff;
     color-scheme: dark;
   }
 
@@ -48,6 +54,7 @@ a { color: var(--accent); text-underline-offset: 0.15em; }
 a:hover { text-decoration-thickness: 2px; }
 
 header.site {
+  border-top: 3px solid var(--accent);
   border-bottom: 1px solid var(--border);
   padding: 1.25rem 0;
 }
@@ -63,6 +70,19 @@ header.site .brand {
   font-weight: 650;
   text-decoration: none;
   letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+header.site .mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--bg);
+  font: 700 0.75rem/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 header.site nav { display: flex; gap: 1.25rem; font-size: 0.95rem; }
 header.site nav a { color: var(--muted); text-decoration: none; }
@@ -82,7 +102,6 @@ h1 { font-size: 2.1rem; margin: 0 0 0.5rem; }
 h2 { font-size: 1.45rem; margin: 2.75rem 0 0.75rem; }
 h3 { font-size: 1.15rem; margin: 2rem 0 0.5rem; }
 
-.meta { color: var(--muted); font-size: 0.95rem; margin: 0 0 2.5rem; }
 .lede { color: var(--muted); font-size: 1.15rem; margin: 0 0 2.5rem; }
 
 article :not(pre) > code {
@@ -115,10 +134,43 @@ table { border-collapse: collapse; width: 100%; font-size: 0.95rem; display: blo
 td code { white-space: nowrap; }
 th, td { border-bottom: 1px solid var(--border); padding: 0.5rem 0.75rem 0.5rem 0; text-align: left; vertical-align: top; }
 
-.article-list { list-style: none; padding: 0; margin: 0; }
-.article-list li { padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
-.article-list li:first-child { padding-top: 0; }
-.article-list a.title { font-size: 1.2rem; font-weight: 600; text-decoration: none; color: var(--fg); }
-.article-list a.title:hover { color: var(--accent); }
-.article-list p { margin: 0.35rem 0 0; color: var(--muted); }
-.article-list time { font-size: 0.875rem; color: var(--muted); }
+.hero { margin-bottom: 2.5rem; }
+.hero h1 { font-size: 2.5rem; }
+.hero .lede { margin-bottom: 0; }
+
+.article-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+
+.card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem 1.1rem;
+  background: var(--surface);
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card h2 { font-size: 1.3rem; margin: 0.35rem 0 0.4rem; }
+.card p { margin: 0; color: var(--muted); }
+.card a.title { color: var(--accent); text-decoration: none; }
+.card a.title:focus { outline: none; }
+/* Stretch the title link over the whole card so any click opens the article. */
+.card a.title::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card .read-more { display: inline-block; margin-top: 0.8rem; color: var(--accent); font-size: 0.925rem; font-weight: 550; }
+
+.card-meta, .meta { display: flex; flex-wrap: wrap; gap: 0 0.9rem; color: var(--muted); font-size: 0.875rem; }
+.card-meta > * + *::before, .meta > * + *::before { content: "·"; margin-right: 0.9rem; }
+.meta { font-size: 0.95rem; margin: 0 0 1rem; }
+
+.tags { list-style: none; padding: 0; margin: 0.75rem 0 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tags li {
+  font: 0.78rem/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  padding: 0.3rem 0.5rem;
+  border-radius: 999px;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+}
+article > .tags { margin: 0 0 2.5rem; }
+
+.back { display: inline-block; font-size: 0.925rem; text-decoration: none; margin-bottom: 1.5rem; }
+.back-bottom { margin: 3rem 0 0; }

@@ -2,6 +2,7 @@
 title: How I set up Claude Code
 description: Four layers, each rule where it gets enforced. Permissions for hard stops, an output style for tone, CLAUDE.md for judgment, skills for depth.
 pubDate: 2026-09-26
+tags: [claude-code, permissions, workflow]
 ---
 
 I use Claude Code every day for platform work: CI/CD, infrastructure as code, and the services behind AI agents. My first setup was one long `CLAUDE.md` that grew a rule every time something annoyed me. It worked, but it got long, and a long list of rules is a list the model follows most of the time.
