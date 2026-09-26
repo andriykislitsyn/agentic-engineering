@@ -22,6 +22,8 @@ const pageTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <link rel="alternate" type="application/rss+xml" title={siteTitle} href={url('rss.xml')} />
+    <link rel="sitemap" href={url('sitemap-index.xml')} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   </head>
   <body>
@@ -31,6 +33,7 @@ const pageTitle = title === siteTitle ? title : `${title} · ${siteTitle}`;
         <nav>
           <a href="https://github.com/andriykislitsyn/agentic-engineering">Source</a>
           <a href="https://github.com/andriykislitsyn">About</a>
+          <a href={url('rss.xml')}>RSS</a>
         </nav>
       </div>
     </header>
