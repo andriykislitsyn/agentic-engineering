@@ -1,15 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import ArticleCard from '../components/ArticleCard.astro';
 import Base from '../layouts/Base.astro';
-import { readingTime } from '../reading-time';
-import { url } from '../url';
 
 const published = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const articles = published.filter((a) => a.data.category === 'article');
+const fieldNotes = published.filter((a) => a.data.category === 'field');
 const setupNotes = published.filter((a) => a.data.category === 'setup');
-const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
 ---
 
 <Base title="Agentic Engineering" description="Notes on building, testing, and shipping agent systems: Claude Code setups, skills, MCP servers, RAG, and CI/CD.">
@@ -18,34 +17,25 @@ const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
     <p class="lede">Notes on building, testing, and shipping agent systems. Every claim here should come with code you can run.</p>
   </section>
   <ul class="article-list">
-    {articles.map((a) => (
-      <li class="card">
-        <p class="card-meta">
-          <time datetime={a.data.pubDate.toISOString()}>{fmt.format(a.data.pubDate)}</time>
-          <span>{readingTime(a.body)} min read</span>
-        </p>
-        <h2><a class="title" href={url(`articles/${a.id}/`)}>{a.data.title}</a></h2>
-        <p>{a.data.description}</p>
-        {a.data.tags.length > 0 && (
-          <ul class="tags">{a.data.tags.map((t) => <li>{t}</li>)}</ul>
-        )}
-        <span class="read-more" aria-hidden="true">Read article →</span>
-      </li>
-    ))}
+    {articles.map((a) => <ArticleCard article={a} />)}
   </ul>
 
   {setupNotes.length > 0 && (
-    <section class="setup-notes">
+    <section class="home-section">
       <h2>Setup notes</h2>
       <p class="section-lede">The workstation behind the work: shell, Git, and tooling.</p>
-      <ul class="compact-list">
-        {setupNotes.map((a) => (
-          <li>
-            <a href={url(`articles/${a.id}/`)}>{a.data.title}</a>
-            <span>{readingTime(a.body)} min read</span>
-            <p>{a.data.description}</p>
-          </li>
-        ))}
+      <ul class="article-list">
+        {setupNotes.map((a) => <ArticleCard article={a} headingLevel={3} />)}
+      </ul>
+    </section>
+  )}
+
+  {fieldNotes.length > 0 && (
+    <section class="home-section">
+      <h2>Field notes</h2>
+      <p class="section-lede">Stories from running real systems in production.</p>
+      <ul class="article-list">
+        {fieldNotes.map((a) => <ArticleCard article={a} headingLevel={3} />)}
       </ul>
     </section>
   )}
