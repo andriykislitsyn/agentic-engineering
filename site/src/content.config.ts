@@ -9,8 +9,8 @@ const articles = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    // Setup notes are workstation posts listed apart from the main articles.
-    category: z.enum(['article', 'setup']).default('article'),
+    // Field notes (production stories) and setup notes (workstation posts) are listed apart from the main articles.
+    category: z.enum(['article', 'field', 'setup']).default('article'),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),

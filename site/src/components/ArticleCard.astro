@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { readingTime } from '../reading-time';
+import { url } from '../url';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  // Cards inside a titled home page section sit one heading level lower.
+  headingLevel?: 2 | 3;
+}
+
+const { article: a, headingLevel = 2 } = Astro.props;
+const Heading = `h${headingLevel}`;
+const fmt = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
+---
+
+<li class="card">
+  <p class="card-meta">
+    <time datetime={a.data.pubDate.toISOString()}>{fmt.format(a.data.pubDate)}</time>
+    <span>{readingTime(a.body)} min read</span>
+  </p>
+  <Heading><a class="title" href={url(`articles/${a.id}/`)}>{a.data.title}</a></Heading>
+  <p>{a.data.description}</p>
+  {a.data.tags.length > 0 && (
+    <ul class="tags">{a.data.tags.map((t) => <li>{t}</li>)}</ul>
+  )}
+  <span class="read-more" aria-hidden="true">Read article →</span>
+</li>
