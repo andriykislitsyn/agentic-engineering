@@ -3,6 +3,7 @@ title: "Review Router: the GitHub Action that learned to review"
 description: "A GitHub Action that routes pull requests to the right teams, and the AI reviewer bolted onto it. What works, what broke, and what is still unproven."
 pubDate: 2026-09-29
 tags: [github-actions, code-review, claude-code, agents]
+category: field
 ---
 
 Every pull request has the same first problem: nobody knows whose turn it is. The author waits, the reviewers don't know they're being waited on, and the PR ages like milk.
