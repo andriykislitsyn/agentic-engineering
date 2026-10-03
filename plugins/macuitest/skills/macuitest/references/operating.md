@@ -35,4 +35,4 @@ A target is `<app> '<locator>'` or `<module.py>:<Screen>.<element>`. A string is
 
 - Apps that draw everything themselves, such as games, canvas editors, and Electron apps, expose little or nothing. Use `screenshot` to look, and `text()` or `image()` locators in a module to act.
 - `capture` writes a screen module with locators and, for elements the tree can't name, PNGs to match.
-- Match on a lookup's missing element with `find`, not by retrying `click`.
+- Test whether an element exists with `find`, not by retrying `click`.
