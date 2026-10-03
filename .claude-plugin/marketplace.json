@@ -8,11 +8,11 @@
   },
   "plugins": [
     {
-      "name": "claude-permissions",
+      "name": "permission-rules",
       "description": "Explains Claude Code permission rules: why a Bash command prompted, how allow and deny patterns match, and which commands prompt regardless of rules.",
-      "source": "./plugins/claude-permissions",
+      "source": "./plugins/permission-rules",
       "category": "development",
-      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/claude-permissions"
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/permission-rules"
     },
     {
       "name": "macuitest",

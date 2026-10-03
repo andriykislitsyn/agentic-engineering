@@ -13,7 +13,7 @@ graders:
   - type: 'tool_used'
     name: 'skill-fired'
     tool: 'Skill'
-    input_match: 'claude-permissions'
+    input_match: 'permission-rules'
     min: 1
   - type: 'regex'
     name: 'suggests-space-form'

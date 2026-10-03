@@ -1,5 +1,5 @@
 ---
-name: claude-permissions
+name: permission-rules
 description: Use when adding, debugging, or reasoning about Claude Code permission rules in settings.json. Explains why a Bash command prompted, how allow and deny patterns match (`:*`, space before `*`, compound commands), and which commands prompt regardless of rules (`source`, `curl`, `cd` inside a compound command). Use the `update-config` skill to make the settings.json edit itself.
 ---
 

@@ -1,11 +1,11 @@
 {
-  "name": "claude-permissions",
+  "name": "permission-rules",
   "description": "Explains Claude Code permission rules: why a Bash command prompted, how allow and deny patterns match, and which commands prompt regardless of rules.",
   "version": "1.0.0",
   "author": {
     "name": "Andrii Kislitsyn"
   },
-  "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/claude-permissions",
+  "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/permission-rules",
   "repository": "https://github.com/andriykislitsyn/agentic-engineering",
   "license": "Apache-2.0",
   "keywords": ["permissions", "settings", "claude-code"]

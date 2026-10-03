@@ -13,7 +13,7 @@ graders:
   - type: 'tool_used'
     name: 'skill-quiet'
     tool: 'Skill'
-    input_match: 'claude-permissions'
+    input_match: 'permission-rules'
     # min defaults to 1, so max alone would demand an impossible 1..0 range.
     min: 0
     max: 0
