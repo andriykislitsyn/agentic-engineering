@@ -29,8 +29,8 @@ jobs:
 
   evals:
     needs: validate
-    # Fork PRs get no secrets, and eval runs execute the plugin under test.
-    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    # Manual only: a run costs API credits, so run the evals locally before a PR.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

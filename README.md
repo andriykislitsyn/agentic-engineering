@@ -2,7 +2,7 @@
 
 Notes on building, testing, and shipping agent systems, published at [andriykislitsyn.github.io/agentic-engineering](https://andriykislitsyn.github.io/agentic-engineering/).
 
-Articles come with code you can run. Tests for skills, MCP servers, and RAG pipelines live next to the article that explains them, and CI runs them.
+Articles come with code you can run. Tests for skills, MCP servers, and RAG pipelines live next to the article that explains them, and CI validates the plugins.
 
 ```
 site/       Astro site deployed to GitHub Pages
@@ -20,7 +20,7 @@ claude plugin install macuitest@agentic-engineering
 
 ## Run a plugin's evals
 
-CI runs them on every PR that touches `plugins/`. Locally:
+Run them locally before a PR that touches `plugins/`. CI runs only `claude plugin validate` on PRs, and runs the evals on demand through the `Skill evals` workflow, which needs an `ANTHROPIC_API_KEY` repository secret. Locally:
 
 ```bash
 claude plugin eval plugins/permission-rules --ablation none --model claude-sonnet-5 --no-publish
