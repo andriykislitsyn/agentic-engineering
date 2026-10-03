@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agentic-engineering",
+  "description": "Claude Code plugins from Agentic Engineering, each with an eval suite that CI runs",
+  "owner": {
+    "name": "Andrii Kislitsyn",
+    "email": "andrii.kislitsyn@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "claude-permissions",
+      "description": "Explains Claude Code permission rules: why a Bash command prompted, how allow and deny patterns match, and which commands prompt regardless of rules.",
+      "source": "./plugins/claude-permissions",
+      "category": "development",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/claude-permissions"
+    }
+  ]
+}

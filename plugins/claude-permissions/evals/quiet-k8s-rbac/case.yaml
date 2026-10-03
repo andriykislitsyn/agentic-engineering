@@ -1,0 +1,22 @@
+schema_version: "1.0"
+name: quiet-k8s-rbac
+description: 'Kubernetes RBAC, not Claude Code permissions.'
+tags: [should-not-fire]
+execution:
+  prompt: >-
+    My pod logs show 'forbidden: User "system:serviceaccount:default:app" cannot list resource "pods"'.
+    How do I give it permission?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-quiet'
+    tool: 'Skill'
+    input_match: 'claude-permissions'
+    # min defaults to 1, so max alone would demand an impossible 1..0 range.
+    min: 0
+    max: 0
+  - type: 'regex'
+    name: 'suggests-rbac'
+    pattern: 'RoleBinding'

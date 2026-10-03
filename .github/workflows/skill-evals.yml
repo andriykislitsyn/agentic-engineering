@@ -1,0 +1,78 @@
+name: Skill evals
+
+on:
+  pull_request:
+    paths: ["plugins/**", ".github/workflows/skill-evals.yml"]
+  workflow_dispatch:
+    inputs:
+      ablation:
+        description: "none scores trigger accuracy; with-without adds a no-plugin baseline and reports the delta"
+        type: choice
+        options: [none, with-without]
+        default: with-without
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm install -g @anthropic-ai/claude-code@2.1.283
+      - run: |
+          claude plugin validate .
+          for plugin in plugins/*/; do claude plugin validate "$plugin"; done
+
+  evals:
+    needs: validate
+    # Fork PRs get no secrets, and eval runs execute the plugin under test.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install the eval sandbox
+        run: |
+          sudo apt-get update && sudo apt-get install -y bubblewrap
+          # Ubuntu 24.04 blocks the unprivileged user namespaces bubblewrap needs.
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      # Pinned so a CLI update can't shift trigger behavior between runs.
+      - run: npm install -g @anthropic-ai/claude-code@2.1.283
+
+      - name: Run evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ABLATION: ${{ inputs.ablation || 'none' }}
+        run: |
+          mkdir -p results
+          status=0
+          for plugin in plugins/*/; do
+            name=$(basename "$plugin")
+            # A case passes at 0.8, so one flaky grader in three runs doesn't fail the build.
+            claude plugin eval "$plugin" \
+              --ablation "$ABLATION" \
+              --model claude-sonnet-5 \
+              --threshold 0.8 \
+              --max-cost-usd 3 \
+              --concurrency 4 \
+              --trust-plugin \
+              --no-publish \
+              --json "results/$name.json" \
+              --report "results/$name.html" || status=1
+          done
+          exit $status
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: eval-results
+          path: results/

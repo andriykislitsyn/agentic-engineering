@@ -1,0 +1,20 @@
+schema_version: "1.0"
+name: fire-pipe-compound
+description: 'Compound commands split on pipes, so the second command prompts.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    I allowed Bash(gh api:*) in Claude Code, but when you run `gh api repos/acme/app/pulls | python3 -c
+    'import json,sys; print(len(json.load(sys.stdin)))'` it still prompts me every time. Why?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'claude-permissions'
+    min: 1
+  - type: 'llm'
+    name: 'explains-pipe-split'
+    criteria: 'Explains that Claude Code splits the command on the pipe and every part must match an allow rule, so the python3 part needs its own rule or the pipe must go.'

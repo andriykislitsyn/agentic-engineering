@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: fire-fixed-path-script
+description: 'A fixed-path script keeps repeated investigations prompt-free.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    I'm debugging a cluster with Claude Code and it keeps running slightly different `python3 -c '...'`
+    one-liners. Each one triggers a permission prompt. How do I set up permissions so these repeated
+    investigation scripts stop prompting?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'claude-permissions'
+    min: 1
+  - type: 'llm'
+    name: 'suggests-fixed-path-script'
+    criteria: 'Recommends keeping the investigation code in a script at a fixed path, allowing that exact invocation with one rule, and rewriting the script contents between runs.'
