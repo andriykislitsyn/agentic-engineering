@@ -1,0 +1,20 @@
+schema_version: "1.0"
+name: fire-electron-no-tree
+description: 'An app with no accessibility tree.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    I'm trying to automate VS Code from the shell with macuitest, but macuitest tree prints almost
+    nothing. What now?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'macuitest'
+    min: 1
+  - type: 'regex'
+    name: 'falls-back-to-screenshots'
+    pattern: 'screenshot|visible text|Electron'

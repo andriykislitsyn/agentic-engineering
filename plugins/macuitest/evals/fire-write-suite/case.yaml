@@ -1,0 +1,23 @@
+schema_version: "1.0"
+name: fire-write-suite
+description: 'Writing a UI test suite.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    I want UI tests for my macOS app, Notes Helper, and we use macuitest. What is the workflow from
+    nothing to a passing suite?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'macuitest'
+    min: 1
+  - type: 'regex'
+    name: 'names-capture'
+    pattern: 'capture'
+  - type: 'regex'
+    name: 'names-check'
+    pattern: 'check'

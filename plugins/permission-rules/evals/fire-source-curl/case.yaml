@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: fire-source-curl
+description: 'source and curl prompt regardless of allow rules.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    My Claude Code settings allow Bash(source:*) and Bash(curl:*), yet `source .venv/bin/activate &&
+    pytest` and `curl https://api.example.com/health` still ask for permission every single time. Why
+    don't the rules work?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'permission-rules'
+    min: 1
+  - type: 'llm'
+    name: 'explains-always-prompt'
+    criteria: 'Says that source and curl prompt no matter what allow rules exist, and suggests at least one workaround: calling the virtualenv Python directly (for example .venv/bin/python -m pytest) or using WebFetch instead of curl.'

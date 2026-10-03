@@ -1,0 +1,17 @@
+{
+  "name": "macuitest",
+  "description": "Teaches an agent to operate and test macOS apps through the accessibility tree with macuitest: the tree, press versus click, approval rules, and how to write a suite.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Andrii Kislitsyn"
+  },
+  "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/macuitest",
+  "repository": "https://github.com/andriykislitsyn/agentic-engineering",
+  "license": "Apache-2.0",
+  "keywords": [
+    "macos",
+    "accessibility",
+    "ui-testing",
+    "automation"
+  ]
+}

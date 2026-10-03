@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agentic-engineering",
+  "description": "Claude Code plugins from Agentic Engineering, each with an eval suite that CI runs",
+  "owner": {
+    "name": "Andrii Kislitsyn",
+    "email": "andrii.kislitsyn@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "permission-rules",
+      "description": "Explains Claude Code permission rules: why a Bash command prompted, how allow and deny patterns match, and which commands prompt regardless of rules.",
+      "source": "./plugins/permission-rules",
+      "category": "development",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/permission-rules"
+    },
+    {
+      "name": "macuitest",
+      "description": "Operate and test macOS apps through the accessibility tree with macuitest: reading the tree, press versus click, approval rules, and writing a UI test suite.",
+      "source": "./plugins/macuitest",
+      "category": "development",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/macuitest"
+    }
+  ]
+}
