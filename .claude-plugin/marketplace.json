@@ -13,6 +13,13 @@
       "source": "./plugins/claude-permissions",
       "category": "development",
       "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/claude-permissions"
+    },
+    {
+      "name": "macuitest",
+      "description": "Operate and test macOS apps through the accessibility tree with macuitest: reading the tree, press versus click, approval rules, and writing a UI test suite.",
+      "source": "./plugins/macuitest",
+      "category": "development",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/macuitest"
     }
   ]
 }

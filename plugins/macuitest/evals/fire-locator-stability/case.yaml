@@ -1,0 +1,19 @@
+schema_version: "1.0"
+name: fire-locator-stability
+description: 'AppKit identifiers change between launches.'
+tags: [should-fire]
+execution:
+  prompt: >-
+    My macuitest locator ax(identifier="_NS:34") worked yesterday and finds nothing today. Why?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'macuitest'
+    min: 1
+  - type: 'regex'
+    name: 'explains-generated-identifiers'
+    pattern: 'between launches|generated|change'

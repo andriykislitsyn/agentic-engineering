@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: quiet-mac-shell
+description: "A Mac task that isn't UI automation."
+tags: [should-not-fire]
+execution:
+  prompt: >-
+    How do I list the files in my home folder that changed in the last day, from the Mac terminal?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-quiet'
+    tool: 'Skill'
+    input_match: 'macuitest'
+    # min defaults to 1, so max alone would demand an impossible 1..0 range.
+    min: 0
+    max: 0
+  - type: 'regex'
+    name: 'uses-find-or-mdfind'
+    pattern: 'find|mdfind'
