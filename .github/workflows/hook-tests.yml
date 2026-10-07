@@ -1,0 +1,15 @@
+name: Hook tests
+
+on:
+  pull_request:
+    paths: ["plugins/guard-hooks/**", ".github/workflows/hook-tests.yml"]
+
+permissions:
+  contents: read
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: python3 -m unittest discover -s plugins/guard-hooks/tests -v

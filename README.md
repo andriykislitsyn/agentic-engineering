@@ -15,7 +15,16 @@ plugins/    Claude Code plugins, each with an eval suite in evals/
 ```bash
 claude plugin marketplace add andriykislitsyn/agentic-engineering
 claude plugin install permission-rules@agentic-engineering
+claude plugin install guard-hooks@agentic-engineering
 claude plugin install macuitest@agentic-engineering
+```
+
+## Run the hook tests
+
+`guard-hooks` has no skill to eval. Its tests are plain `unittest` and cost nothing. CI runs them on every PR that touches the plugin.
+
+```bash
+python3 -m unittest discover -s plugins/guard-hooks/tests -v
 ```
 
 ## Run a plugin's evals

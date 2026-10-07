@@ -57,6 +57,8 @@ jobs:
           status=0
           for plugin in plugins/*/; do
             name=$(basename "$plugin")
+            # Plugins without skills, such as guard-hooks, test with unittest in hook-tests.yml.
+            [ -d "$plugin/evals" ] || continue
             # A case passes at 0.8, so one flaky grader in three runs doesn't fail the build.
             claude plugin eval "$plugin" \
               --ablation "$ABLATION" \

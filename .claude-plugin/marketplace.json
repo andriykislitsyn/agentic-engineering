@@ -15,6 +15,13 @@
       "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/permission-rules"
     },
     {
+      "name": "guard-hooks",
+      "description": "A PreToolUse hook for rules that deny globs can't express: gh api writes, git reset --hard, a commit when origin is ahead, and printing secrets.",
+      "source": "./plugins/guard-hooks",
+      "category": "security",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/guard-hooks"
+    },
+    {
       "name": "macuitest",
       "description": "Operate and test macOS apps through the accessibility tree with macuitest: reading the tree, press versus click, approval rules, and writing a UI test suite.",
       "source": "./plugins/macuitest",
