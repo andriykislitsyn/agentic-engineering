@@ -1,0 +1,12 @@
+{
+  "name": "guard-hooks",
+  "description": "A PreToolUse hook for rules that deny globs can't express: gh api writes, git reset --hard, a commit when origin is ahead, and printing secrets.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Andrii Kislitsyn"
+  },
+  "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/guard-hooks",
+  "repository": "https://github.com/andriykislitsyn/agentic-engineering",
+  "license": "Apache-2.0",
+  "keywords": ["hooks", "permissions", "security", "claude-code"]
+}
