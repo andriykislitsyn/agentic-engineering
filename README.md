@@ -17,6 +17,7 @@ claude plugin marketplace add andriykislitsyn/agentic-engineering
 claude plugin install permission-rules@agentic-engineering
 claude plugin install guard-hooks@agentic-engineering
 claude plugin install macuitest@agentic-engineering
+claude plugin install agentic-testing@agentic-engineering
 ```
 
 ## Run the hook tests

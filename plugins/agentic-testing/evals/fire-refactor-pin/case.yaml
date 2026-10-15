@@ -1,0 +1,38 @@
+schema_version: "1.0"
+name: fire-refactor-pin
+description: 'Pin current behavior before restructuring.'
+tags: [should-fire]
+execution:
+  prompt: |-
+    Refactor this into smaller functions. It must behave exactly the same afterwards, and it has no tests
+    today.
+    There is no repo here, so reply with the code inline.
+
+
+    ```python
+
+    def price(qty, unit_cents, customer):
+        total = qty * unit_cents
+        if qty >= 100:
+            total = total * 90 // 100
+        elif qty >= 10:
+            total = total * 95 // 100
+        if customer == "gold":
+            total = total - total // 20
+        if total < 0:
+            total = 0
+        return total
+    ```
+  max_turns: 12
+  timeout_seconds: 600
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'agentic-testing'
+    min: 1
+  - type: 'llm'
+    name: 'pins-behavior-first'
+    criteria: 'The reply writes tests (or a test plan with concrete cases around the 10 and 100 quantity thresholds and the gold discount) against the current price() behavior before or alongside the refactor, and states that these tests stay unchanged during the refactor. A reply that only restructures the code fails.'
