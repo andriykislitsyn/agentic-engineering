@@ -1,0 +1,41 @@
+schema_version: "1.0"
+name: fire-weak-tests
+description: 'Passing tests that would survive a broken boundary are not trustworthy.'
+tags: [should-fire]
+execution:
+  prompt: |-
+    These tests pass. Can I trust them to protect this function?
+
+
+    ```python
+
+    def clamp(value: int, low: int, high: int) -> int:
+        if value < low:
+            return low
+        if value > high:
+            return high
+        return value
+    ```
+
+
+    ```python
+
+    def test_clamp_inside_range():
+        assert clamp(5, 0, 10) == 5
+
+
+    def test_clamp_returns_int():
+        assert isinstance(clamp(5, 0, 10), int)
+    ```
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'agentic-testing'
+    min: 1
+  - type: 'llm'
+    name: 'shows-tests-would-not-catch-breakage'
+    criteria: 'The reply says the tests are not enough and shows why with a concrete breakage that would still pass them (for example deleting the low or high branch, or changing < to <=), then adds tests below low, above high and at the boundaries.'

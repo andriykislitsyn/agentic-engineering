@@ -27,6 +27,13 @@
       "source": "./plugins/macuitest",
       "category": "development",
       "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/macuitest"
+    },
+    {
+      "name": "agentic-testing",
+      "description": "Makes tests a trustworthy review substitute when an agent generates more code than a person can read: spec-derived expectations, red before green, mutation spot checks, no weakening tests, and a handoff of what is proven.",
+      "source": "./plugins/agentic-testing",
+      "category": "development",
+      "homepage": "https://github.com/andriykislitsyn/agentic-engineering/tree/main/plugins/agentic-testing"
     }
   ]
 }

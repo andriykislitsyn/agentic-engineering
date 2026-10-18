@@ -1,0 +1,21 @@
+schema_version: "1.0"
+name: fire-volume-handoff
+description: 'Large generated change the user cannot read: hand over a bounded review surface.'
+tags: [should-fire]
+execution:
+  prompt: |-
+    You just generated about 900 lines across six files for a new ingestion job: a CSV parser, a dedupe step
+    and a database writer, with their tests. The tests pass. I can't review all of it carefully. What do you
+    give me so I can decide whether to merge?
+  max_turns: 6
+  allowed_tools: [Read, Glob, Grep, Skill]
+runs: 3
+graders:
+  - type: 'tool_used'
+    name: 'skill-fired'
+    tool: 'Skill'
+    input_match: 'agentic-testing'
+    min: 1
+  - type: 'llm'
+    name: 'bounded-review-surface'
+    criteria: 'The reply does not say "tests pass, so merge" or ask the user to read the diff. It hands over a short review surface that includes at least three of: the behaviors the tests prove, a list of what is not verified (for example untested changed lines or an integration that only CI can run), deliberate-breakage or mutation checks with their results, and assumptions about the spec for the user to confirm. It points the user at the tests and that list before the implementation.'

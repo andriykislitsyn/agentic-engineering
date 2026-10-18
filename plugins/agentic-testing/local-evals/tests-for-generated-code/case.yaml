@@ -1,0 +1,18 @@
+schema_version: "1.0"
+name: tests-for-generated-code
+description: 'Tests for generated code with a planted boundary bug. Graded outside the run by mutation score (local-evals/mutation_grade.py).'
+tags: [should-fire, tools]
+context:
+  scaffold_script: scaffold.sh
+execution:
+  prompt: |-
+    Another agent generated pricing.py from SPEC.md and I can't review it line by line. Add tests for it in test_pricing.py using stdlib unittest (from pricing import order_total) and run them with python3 -m unittest.
+  max_turns: 30
+  timeout_seconds: 900
+  allowed_tools: [Read, Glob, Grep, Skill, Write, Edit, Bash]
+runs: 3
+graders:
+  - type: 'regex'
+    name: 'ran-unittest'
+    target: trace
+    pattern: 'unittest'

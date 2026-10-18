@@ -1,0 +1,10 @@
+{
+  "name": "agentic-testing",
+  "description": "Makes tests a trustworthy review substitute when an agent generates more code than a human can read: spec-derived expectations, red before green, mutation spot checks, no weakening tests, and a handoff of what is proven.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andrii Kislitsyn"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["testing", "mutation-testing", "code-review", "claude-code"]
+}
